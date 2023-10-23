@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import {Button, FlatList, Text, TouchableOpacity, View} from 'react-native';
-import TodoItem from "../ToDoLine/TodoItem";
+import TodoItem from "../components/ToDoLine/TodoItem";
 
 
 const TodoDoneScreen = ({ route, navigation }) => {
 
-    const { data, funcRemove, funcToggle } = route.params;
+    const { data, funcRemove } = route.params;
 
     const [todos, setTodos] = useState(data?.filter((item) => item.completed));
 

@@ -1,26 +1,30 @@
 import React, { useEffect, useState } from 'react';
-import {Button, StyleSheet, Text, View, TextInput, FlatList, SafeAreaView} from 'react-native';
-import TodoItem from "../ToDoLine/TodoItem";
+import {Button, StyleSheet, Text, View, TextInput, FlatList, SafeAreaView, ActivityIndicator} from 'react-native';
+import TodoItem from "../components/ToDoLine/TodoItem";
+import {useRootStore} from "../hooks/useRootStore";
+import {observer} from "mobx-react";
 
-const TodoScreen = ({ navigation: { navigate } }) => {
-    const [todos, setTodos] = useState([]);
+const TodoScreen = observer(({ navigation: { navigate } }) => {
     const [text, setText] = useState("");
 
+    const { todosStore } = useRootStore();
+
+    useEffect(() => {
+        todosStore.getTodoObjectFromService();
+    }, [])
+
+
     const addItem = () => {
-        setTodos([...todos, {text, completed: false}]);
+        todosStore.actionAdd({text, completed: false});
         setText("");
     };
 
     const toggleItem = (index) => {
-        const items = [...todos];
-        items[index].completed = !items[index].completed;
-        setTodos(items);
-    }
+        todosStore.actionChange(index);
+    };
 
     const removeItem = (index) => {
-        const items = [...todos];
-        items.splice(index, 1)
-        setTodos(items);
+        todosStore.actionDelete(index);
     }
 
     const keyExtractor = (index) => {
@@ -31,25 +35,29 @@ const TodoScreen = ({ navigation: { navigate } }) => {
         <SafeAreaView style={styles.container}>
             <View style={styles.content}>
                 <Text>NEW:</Text>
-                <FlatList
-                    data={todos}
-                    keyExtractor={(item, index) => keyExtractor(index)}
-                    renderItem={({item, index}) => (
-                        <TodoItem item={item} index={index} removeItem={removeItem} toggleItem={toggleItem} />
-                    )}
-                />
+                {todosStore.todosModel && !todosStore.isLoading ? (
+                    <FlatList
+                        data={todosStore.todosModel.todoList}
+                        keyExtractor={(item, index) => keyExtractor(index)}
+                        renderItem={({item, index}) => (
+                            <TodoItem item={item} index={index} removeItem={removeItem} toggleItem={toggleItem}/>
+                        )}
+                    />
+                ) : (
+                    <ActivityIndicator/>)
+                }
                 <TextInput style={styles.textInput} onChangeText={newText => setText(newText)} value={text}></TextInput>
                 <Button title=" ADD " onPress={() => addItem() }></Button>
                 <Button
                     onPress={() =>
-                        navigate('TodoDone', {data: todos, funcRemove: removeItem, funcToggle: toggleItem})
+                        navigate('TodoDone', {data: todosStore.todosModel.todoList, funcRemove: removeItem, funcToggle: toggleItem})
                     }
                     title="Go to done TODOs screen"
                 />
             </View>
         </SafeAreaView>
     )
-}
+})
 
 const styles = StyleSheet.create({
     container: {
