@@ -5,8 +5,20 @@ import {
     View,
     TouchableOpacity,
 } from 'react-native';
+import React, { useEffect } from 'react';
+import {useRootStore} from "../../hooks/useRootStore";
+import {observer} from "mobx-react";
 
-export const TodoItem = props => {
+export const TodoItem = observer(props => {
+
+
+    const { todosStore } = useRootStore();
+
+    useEffect(() => {
+        console.log("todo item " + todosStore.todosModel.todoList[props.index].completed)
+        console.log("todo item props " + props.item.completed)
+    }, [todosStore.todosModel.todoList[props.index].completed])
+
 
     return (
         <View style={styles.todoLine}>
@@ -25,7 +37,7 @@ export const TodoItem = props => {
             />
         </View>
     )
-}
+})
 
 const styles = StyleSheet.create({
     todoLine: {

@@ -9,30 +9,31 @@ import NewsScreen from "./screens/NewsScreen";
 import ChatScreen from "./screens/ChatScreen";
 import SettingsScreen from "./screens/SettingsScreen";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
+import TodoScreen from "./screens/TodoScreen";
+import TodoDoneScreen from "./screens/TodoDoneScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const TabNavigation = () => {
     return (
-        <Tab.Navigator initialRouteName={'Home'}
-                       screenOptions={({ route }) => ({
-                           tabBarIcon: () =>{
-                               if (route.name === 'Home'){
-                                   return <Icon type="feather" name="home"/>
-                               } else if (route.name === 'Chat'){
-                                   return <Icon type="feather" name="message-circle"/>
-                               } else if (route.name === 'Settings'){
-                                   return <Icon type="feather" name="settings"/>
-                               } else if (route.name === 'News'){
-                                   return <Icon type="feather" name="grid"/>
-                               }
-                           }
-                       })}>
-            <Tab.Screen name="Home" component={HomeStack} options={{headerShown: false}}/>
-            <Tab.Screen name="News" component={NewsScreen} options={{headerTitleAlign: "center"}}/>
-            <Tab.Screen name="Chat" component={ChatScreen} options={{headerTitleAlign: "center"}}/>
-            <Tab.Screen name="Settings" component={SettingsScreen} options={{headerTitleAlign: "center"}}/>
+        <Tab.Navigator initialRouteName={'Home'}>
+            <Tab.Screen name="Home" component={HomeStack} options={{
+                headerShown: false,
+                tabBarIcon: ()=><Icon type="feather" name="home"/>
+            }}/>
+            <Tab.Screen name="News" component={NewsScreen} options={{
+                headerTitleAlign: "center",
+                tabBarIcon: ()=><Icon type="feather" name="grid"/>
+            }}/>
+            <Tab.Screen name="Chat" component={ChatScreen} options={{
+                headerTitleAlign: "center",
+                tabBarIcon: ()=><Icon type="feather" name="message-circle"/>
+            }}/>
+            <Tab.Screen name="TODOs" component={TodoScreen} options={{
+                headerTitleAlign: "center",
+                tabBarIcon: ()=><Icon type="feather" name="list"/>
+            }}/>
         </Tab.Navigator>
     )
 }
@@ -69,6 +70,7 @@ const App = () => {
         <NavigationContainer>
             <Stack.Navigator>
                 <Stack.Screen name={'Tab'} component={TabNavigation} options={{headerShown: false}}/>
+                <Stack.Screen name={'TodoDone'} component={TodoDoneScreen}/>
             </Stack.Navigator>
         </NavigationContainer>
     );
