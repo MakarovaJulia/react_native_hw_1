@@ -50,4 +50,16 @@ export default class TodosService {
         model.todoList[index].completed = !model.todoList[index].completed;
         return model;
     }
+
+
+    /**
+     * @param model TodosModel
+     * @returns {TodosModel}
+     */
+    getCompletedTodo = (model) => {
+        console.log("getCompletedTodo" + model)
+        console.log("getCompletedTodo filtered" + model.filter((item) => item.completed))
+        let modelFiltered = model.filter((item) => item.completed)
+        return modelFiltered;
+    }
 }

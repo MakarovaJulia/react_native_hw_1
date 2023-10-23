@@ -1,37 +1,36 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, FlatList, Text, TouchableOpacity, View} from 'react-native';
 import TodoItem from "../components/ToDoLine/TodoItem";
+import {observer} from "mobx-react";
+import {useRootStore} from "../hooks/useRootStore";
 
 
-const TodoDoneScreen = ({ route, navigation }) => {
+const TodoDoneScreen = observer(({ navigation }) => {
 
-    const { data, funcRemove } = route.params;
+    const { todosStore } = useRootStore();
 
-    const [todos, setTodos] = useState(data?.filter((item) => item.completed));
+    const [todos, setTodos] = useState(todosStore.actionGetCompleted(todosStore.todosModel.todoList) || []);
 
-    const keyExtractor = (index) => {
-        return index.toString();
-    };
+    useEffect(()=>{
+        console.log(todos)
+    }, [todos])
+
 
     const handleRemoveItem = (index) => {
-        const items = [...todos];
-        items.splice(index, 1)
-        setTodos(items);
-        funcRemove(index)
+        console.log("item from handleRemoveItem " + index)
+        todosStore.actionChange(index)
+        setTodos(todosStore.actionGetCompleted(todosStore.todosModel.todoList))
     }
-
-    console.log(data)
 
     return (
         <View style={{flex: 1, margin: 8, padding: 16}}>
             <FlatList
                 data={todos}
-                keyExtractor={(item, index) => keyExtractor(index)}
-                renderItem={({item, index}) => (
+                renderItem={({item}) => (
                     <View style={{flexDirection: "row", justifyContent: "space-between"}}>
                         <Text>{item.text}</Text>
                         <TouchableOpacity
-                            onPress={() => handleRemoveItem(index)}
+                            onPress={() => handleRemoveItem(item.index)}
                         >
                             <Text>Удалить</Text>
                         </TouchableOpacity>
@@ -44,6 +43,6 @@ const TodoDoneScreen = ({ route, navigation }) => {
             />
         </View>
     )
-}
+})
 
 export default TodoDoneScreen;

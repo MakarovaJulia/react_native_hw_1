@@ -15,11 +15,12 @@ const TodoScreen = observer(({ navigation: { navigate } }) => {
 
 
     const addItem = () => {
-        todosStore.actionAdd({text, completed: false});
+        todosStore.actionAdd({text, completed: false, index: todosStore.todosModel.todoList.length});
         setText("");
     };
 
     const toggleItem = (index) => {
+        console.log("toggle item" + index)
         todosStore.actionChange(index);
     };
 
@@ -50,7 +51,7 @@ const TodoScreen = observer(({ navigation: { navigate } }) => {
                 <Button title=" ADD " onPress={() => addItem() }></Button>
                 <Button
                     onPress={() =>
-                        navigate('TodoDone', {data: todosStore.todosModel.todoList, funcRemove: removeItem, funcToggle: toggleItem})
+                        navigate('TodoDone', {data: todosStore.todosModel.todoList})
                     }
                     title="Go to done TODOs screen"
                 />

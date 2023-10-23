@@ -20,6 +20,11 @@ export class TodosStore {
         this.setTodosModel(model);
     }
 
+    actionGetCompleted = (model) => {
+        let completedTodos = this.todosService.getCompletedTodo(model)
+        return completedTodos;
+    }
+
     actionAdd = (value) => {
         this.setIsLoading(true);
 
