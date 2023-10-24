@@ -1,6 +1,6 @@
 import React from "react";
 import {makeAutoObservable} from "mobx";
-import TodosService from "../../model/todos/TodosService";
+import TodosService from "../modules/todos/TodosService";
 
 export class TodosStore {
     todosModel = null;

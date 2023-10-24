@@ -1,6 +1,6 @@
 import React from "react";
-import {ClickerStore} from "./clicker/ClickerStore";
-import {TodosStore} from "./todos/TodosStore";
+import {ClickerStore} from "./ClickerStore";
+import {TodosStore} from "./TodosStore";
 
 class RootStore {
     clickerStore;

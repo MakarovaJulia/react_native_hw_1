@@ -1,6 +1,7 @@
 import React from "react";
 
 export default class TodosRepository {
+
     /**
      * @returns {{defaultTodoList: []}}
      */

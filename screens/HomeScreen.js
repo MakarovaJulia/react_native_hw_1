@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {ActivityIndicator, Button, SafeAreaView, Text, View} from 'react-native';
 import {observer} from "mobx-react";
-import {mobxClicker} from "../mobx/clicker/MobxClicker";
+import {mobxClicker} from "../components/MobxClicker";
 import {useRootStore} from "../hooks/useRootStore";
 
 const HomeScreen = observer(() => {

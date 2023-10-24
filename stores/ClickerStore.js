@@ -1,6 +1,6 @@
 import React from "react";
 import {makeAutoObservable} from "mobx";
-import ClickerService from "../../model/clicker/ClickerService";
+import ClickerService from "../modules/clicker/ClickerService";
 
 export class ClickerStore {
     clickerModel = null;
