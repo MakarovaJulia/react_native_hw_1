@@ -1,6 +1,6 @@
-import React from "react";
-import TodosRepository from "./TodosRepository";
-import {TodosModel} from "./TodosModel";
+import React from 'react';
+import TodosRepository from './TodosRepository';
+import { TodosModel } from './TodosModel';
 
 export default class TodosService {
     todosRepository;
@@ -23,6 +23,7 @@ export default class TodosService {
 
     /**
      * @param model TodosModel
+     * @param value
      * @returns {TodosModel}
      */
     addTodo = (model, value) => {
@@ -32,10 +33,10 @@ export default class TodosService {
 
     /**
      * @param model TodosModel
+     * @param index
      * @returns {TodosModel}
      */
     deleteTodo = (model, index) => {
-        console.log("deleteTodo " + model)
         model.todoList.splice(index, 1)
         return model;
     }
@@ -43,10 +44,10 @@ export default class TodosService {
 
     /**
      * @param model TodosModel
+     * @param index
      * @returns {TodosModel}
      */
     changeTodo = (model, index) => {
-        console.log("changeTodo " + model.todoList[index])
         model.todoList[index].completed = !model.todoList[index].completed;
         return model;
     }
@@ -57,9 +58,6 @@ export default class TodosService {
      * @returns {TodosModel}
      */
     getCompletedTodo = (model) => {
-        console.log("getCompletedTodo" + model)
-        console.log("getCompletedTodo filtered" + model.filter((item) => item.completed))
-        let modelFiltered = model.filter((item) => item.completed)
-        return modelFiltered;
+        return model.filter((item) => item.completed);
     }
 }

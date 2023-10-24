@@ -17,7 +17,6 @@ const TodoDoneScreen = observer(({ navigation }) => {
 
 
     const handleRemoveItem = (index) => {
-        console.log("item from handleRemoveItem " + index)
         todosStore.actionChange(index)
         setTodos(todosStore.actionGetCompleted(todosStore.todosModel.todoList))
     }

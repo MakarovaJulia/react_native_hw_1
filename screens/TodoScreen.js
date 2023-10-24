@@ -20,7 +20,6 @@ const TodoScreen = observer(({ navigation: { navigate } }) => {
     };
 
     const toggleItem = (index) => {
-        console.log("toggle item" + index)
         todosStore.actionChange(index);
     };
 
