@@ -7,10 +7,10 @@ import AboutScreen from "./screens/AboutScreen";
 import HomeScreen from "./screens/HomeScreen";
 import NewsScreen from "./screens/NewsScreen";
 import ChatScreen from "./screens/ChatScreen";
-import SettingsScreen from "./screens/SettingsScreen";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import TodoScreen from "./screens/TodoScreen";
 import TodoDoneScreen from "./screens/TodoDoneScreen";
+import LogsScreen from './screens/LogsScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -71,6 +71,7 @@ const App = () => {
             <Stack.Navigator>
                 <Stack.Screen name={'Tab'} component={TabNavigation} options={{headerShown: false}}/>
                 <Stack.Screen name={'TodoDone'} component={TodoDoneScreen}/>
+                <Stack.Screen name={'Logs'} component={LogsScreen}/>
             </Stack.Navigator>
         </NavigationContainer>
     );
