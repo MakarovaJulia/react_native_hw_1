@@ -1,7 +1,5 @@
 
 
 
-
-
-https://github.com/MakarovaJulia/react_native_hw_1/assets/70716673/a2e38f1d-8398-448c-8348-451cbb3f26cf
+https://github.com/MakarovaJulia/react_native_hw_1/assets/70716673/fd2b408f-fc58-4f31-988f-91e29330ad48
 
