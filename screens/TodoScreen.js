@@ -7,23 +7,27 @@ import {observer} from "mobx-react";
 const TodoScreen = observer(({ navigation: { navigate } }) => {
     const [text, setText] = useState("");
 
-    const { todosStore } = useRootStore();
+    const { todosStore, logsStore } = useRootStore();
 
     useEffect(() => {
         todosStore.getTodoObjectFromService();
+        logsStore.getLogsObjectFromService();
     }, [])
 
 
     const addItem = () => {
         todosStore.actionAdd({text, completed: false, index: todosStore.todosModel.todoList.length});
+        logsStore.actionAdd(`Добавлена todo: ${text}`)
         setText("");
     };
 
     const toggleItem = (index) => {
         todosStore.actionChange(index);
+        logsStore.actionAdd(`Изменена todo: ${todosStore.todosModel.todoList[index].text}`)
     };
 
     const removeItem = (index) => {
+        logsStore.actionAdd(`Удалена todo: ${todosStore.todosModel.todoList[index].text}`)
         todosStore.actionDelete(index);
     }
 
@@ -53,6 +57,12 @@ const TodoScreen = observer(({ navigation: { navigate } }) => {
                         navigate('TodoDone', {data: todosStore.todosModel.todoList})
                     }
                     title="Go to done TODOs screen"
+                />
+                <Button
+                  onPress={() =>
+                    navigate('Logs', {data: logsStore.logsModel.logs})
+                  }
+                  title="Go to Logs screen"
                 />
             </View>
         </SafeAreaView>
